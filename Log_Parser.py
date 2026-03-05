@@ -7,17 +7,23 @@ guvenlik_loglari = [
     {"tarih": "10:20", "ip": "192.168.1.5", "kullanici": "admin", "durum": "success"}
 ]
 
-basarisiz_denemeler = 0
-supheli_ipler = set()
+def log_analiz_et(log_listesi):
+    basarisiz_denemeler = 0
+    supheli_ipler = set()
 
-for log in guvenlik_loglari:
-    if log["durum"] == "failed":
-        basarisiz_denemeler += 1
-        print(f"Supheli IP bulundu: {log['ip']}")
-        print("~~~~~~~~~")
-        supheli_ipler.add(log["ip"])
+    for log in log_listesi:
+        if log["durum"] == "failed":
+            basarisiz_denemeler += 1
+            print(f"Supheli IP bulundu {log['ip']}")
+            print("~~~~~~~~~")
+            supheli_ipler.add(log["ip"])
 
-print(f"Toplam basarisiz giris denemesi: {basarisiz_denemeler}")
-print("Tespit edilen supheli IP'ler: ")
-for ip in supheli_ipler:
-    print(f"- {ip}")
+    basarisiz_veri = f"Basarisiz deneme sayisi: {basarisiz_denemeler}"
+    supheli_veri = f"Tespit edilen supheli IP'ler: {supheli_ipler}"
+
+    return basarisiz_veri, supheli_veri
+
+guvenlik_basarisiz_veri, guvenlik_supheli_veri = log_analiz_et(guvenlik_loglari)
+
+# print(guvenlik_basarisiz_veri)
+# print(guvenlik_supheli_veri)
