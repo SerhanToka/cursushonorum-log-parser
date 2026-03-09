@@ -12,14 +12,20 @@ def log_analiz_et(log_listesi, hedef_durum="failed"):
     return eslesen_log_sayisi, hedef_ipler
 
 veritabani_loglari = []
-with open("deneme_log.txt", "r") as log_dosyasi:
-    for line in log_dosyasi:
-        veri = line.split(" - ")
-        log_verisi = {
-            "ip": veri[1],
-            "durum": veri[2].strip()
-        }
-        veritabani_loglari.append(log_verisi)
+while True:
+    try:
+        path = input("Lutfen dosya yolu belirtiniz: (orn: home/user/log.txt)")
+        with open(path, "r") as log_dosyasi:
+            for line in log_dosyasi:
+                veri = line.split(" - ")
+                log_verisi = {
+                    "ip": veri[1],
+                    "durum": veri[2].strip()
+                }
+                veritabani_loglari.append(log_verisi)
+        break
+    except FileNotFoundError:
+        print("Kritik Hata: Log dosyasi bulunamadi!")
 
 basarisiz_loglar, basarisiz_ipler = log_analiz_et(log_listesi=veritabani_loglari, hedef_durum="failed")
 basarili_loglar, basarili_ipler = log_analiz_et(log_listesi=veritabani_loglari, hedef_durum="success")
