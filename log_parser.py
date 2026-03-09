@@ -13,7 +13,7 @@ if __name__ == "__main__":
     log_database = []
     while True:
         try:
-            path = input("Please enter the file path (e.g., home/user/logs.txt):")
+            path = input("Please enter the file path (e.g., home/user/logs.txt): ")
             with open(path, "r") as log_file:
                 for line in log_file:
                     data = line.split(" - ")
